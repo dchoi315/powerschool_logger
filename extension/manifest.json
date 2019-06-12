@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+  "name": "Powerschool Logger",
+  "version": "0.1",
+  "description": "Tracks updates on Powerschool",
+
+  "content_scripts": [
+    {
+      "js":["content.js"],
+      "matches": ["https://ps01.bergen.org/guardian/home.html"]
+    }
+  ],
+
+
+  "browser_action": {
+    "default_icon": "powerschool.png",
+    "default_title": "powerschool logger"
+
+  },
+
+  "permissions": [
+    "storage",
+    "https://ajax.googleapis.com/",
+    "activeTab"
+  ]
+
+}
