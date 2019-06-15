@@ -12,6 +12,7 @@
   ],
 
 
+
   "browser_action": {
     "default_icon": "powerschool.png",
     "default_title": "powerschool logger"
