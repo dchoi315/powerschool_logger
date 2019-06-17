@@ -60,7 +60,7 @@ chrome.storage.local.get("grades", function(key){
 	var current_data = classData();
 	var previous_data = key.grades
 	// var previous_data = [
-	// 		["AP Micro Economics ", 90, 94.1, 96.2, 95.4],
+	// 		// ["AP Micro Economics ", 90, 94.1, 96.2, 95.4],
 	// 		["IB Literature_Language I HL ", 95.9, 93.6, 52, 95.4],
 	// 		["AP Calculus AB ", 97.5, 93.9, 98.5, 96.6],
 	// 		["Adv Topics Comp Science ", 80, 96.3, 93, 30],
@@ -125,18 +125,16 @@ chrome.storage.local.get("grades", function(key){
 				td += "<td align='left'>"+changes[i][j]+"</td>";
 			}
 			new_tr ="<tr>"+td+"</tr>" + new_tr;
-
-
 		}
 
 
 
 		var historybox = document.createElement("h3");
-		var tableHTML = "<div style='overflow-y: scroll; height: 200px;'><table><tr><td>Subject</td><td>Tri</td><td>Before</td><td>After</td><td>Change</td><td>Date Updated</td></tr>" + new_tr + tr + "</table></div>";
+		var tableHTML = "<div style='overflow-y: scroll; height: 200px;'><table><tr><td>Subject</td></td><td>Before</td><td>After</td><td>Change</td><td>Date Updated</td></tr>" + new_tr + tr + "</table></div>";
 		if (changes.length == 0){
 			tableHTML = "<p>No Recent Updates</p>" + tableHTML;
 		} else{
-			tableHTML = "<p>New Update</p>" + tableHTML;
+			tableHTML = "<p style='font-family: Impact, Charcoal, sans-serif; font-size: 30px; color: #1AFF44; text-decoration: underline #1AFF44; text-transform: uppercase'>New Update</p>" + tableHTML;
 		}
 		historybox.innerHTML = tableHTML;
 
