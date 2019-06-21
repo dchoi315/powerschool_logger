@@ -32,7 +32,8 @@ function classData(){
 			var elta = elt.querySelector('a');
 
 			if(elta == null) continue;
-			// console.log(elta.textContent)
+	
+
 			var href = elta.href;
 			if(href.substring(href.length - 2) == "T1"){
 				grades[1] = extractNumberGrade(elta.textContent);
@@ -58,28 +59,13 @@ function classData(){
 
 chrome.storage.local.get("grades", function(key){
 	var current_data = classData();
-	var previous_data = key.grades
-	// var previous_data = [
-	// 		// ["AP Micro Economics ", 90, 94.1, 96.2, 95.4],
-	// 		["IB Literature_Language I HL ", 95.9, 93.6, 52, 95.4],
-	// 		["AP Calculus AB ", 97.5, 93.9, 98.5, 96.6],
-	// 		["Adv Topics Comp Science ", 80, 96.3, 93, 30],
-	// 		["Physics ", 95, 99.1, 94.8, 96.3],
-	// 		["Simulations and Num Models ", "N", 95, "N", "N"],
-	// 		["IB Hist of Amer I HL ", 94.2, 93.9, 92.3, 93.4],
-	// 		["IB Espanol IV SL ", 96.1, 95.4, 92.1, 90.3],
-	// 		["Structured Query Lang ", "N", 70, "N", "N"],
-	// 		["Artificial Intelligence ", "N", "N", 91.8, "N"]
-	// 	];
+	var previous_data = key.grade
+
 	changes = [];
 	if(previous_data !== undefined){
 
-		console.log("current_data");
-		console.log(current_data)
-		console.log("previous_data");
-		console.log(previous_data)
 
-		// Subject - Current - Previous - Change - DateUpdated
+
 
 
 		for (subjectIndex = 0; subjectIndex < current_data.length; subjectIndex++){
@@ -109,14 +95,13 @@ chrome.storage.local.get("grades", function(key){
 				}
 			}
 		}
-	} else{
-		console.log("First Scraping")
-	}
+	} 
 
 
 	chrome.storage.local.get("tr", function(key){
 		var new_tr = "";
-		var tr = key.tr;
+		var tr = key.tr === undefined ? "" : key.tr;
+
 
 
 		for (i=changes.length-1; i >= 0; i--){
@@ -130,12 +115,13 @@ chrome.storage.local.get("grades", function(key){
 
 
 		var historybox = document.createElement("h3");
-		var tableHTML = "<div style='overflow-y: scroll; height: 200px;'><table><tr><td>Subject</td></td><td>Before</td><td>After</td><td>Change</td><td>Date Updated</td></tr>" + new_tr + tr + "</table></div>";
+		var tableHTML = "<div style='overflow-y: scroll; height: 200px;'><table><tr style='border-bottom: 3px solid black'><td>Subject</td><td>Tri</td><td>Before</td><td>After</td><td>Change</td><td>Date Updated</td></tr>" + new_tr + tr + "</table></div>";
 		if (changes.length == 0){
-			tableHTML = "<p>No Recent Updates</p>" + tableHTML;
-		} else{
-			tableHTML = "<p style='font-family: Impact, Charcoal, sans-serif; font-size: 30px; color: #1AFF44; text-decoration: underline #1AFF44; text-transform: uppercase'>New Update</p>" + tableHTML;
+			tableHTML = "<p>No Recent Updates</p><hr size='10'>" + tableHTML;
+		}  else{
+			tableHTML = "<p>New Update </p><hr size='10'>"+ tableHTML ;
 		}
+
 		historybox.innerHTML = tableHTML;
 
 		var contentArea = document.getElementById("content-main");
@@ -154,9 +140,8 @@ chrome.storage.local.get("grades", function(key){
 
 
 
-	chrome.storage.local.set({'grades': current_data}, function(){
-		console.log("Grade has been updated");
-	});
+	chrome.storage.local.set({'grades': current_data});
+	
 
 });
 
