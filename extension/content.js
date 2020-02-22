@@ -1,10 +1,13 @@
 function extractNumberGrade(str){
 	var s = "";
+	
+	if(str == "--" || str == "[ i ]" || str =="") return null;
 	for(var i = 0; i < str.length; i++){
 		if(str[i] >= '0' && str[i] <= '9' || str[i] == '.') s += str[i];
+		
 
 	}
-	if(s == "--" || s == "[ i ]") return NaN;
+	
 	return parseFloat(s);;
 }
 function classData(){
@@ -16,12 +19,14 @@ function classData(){
 
 	for(var i = 0; i < classes.length; i++){
 		var class_data = classes.item(i).querySelector('td[align="left"]');
+		
 
 		var name = class_data.textContent.substring(0,class_data.textContent.indexOf("Details" , 0));
 		if(name[0] == '~') continue; //Not included in GPA
 
 		var info = classes.item(i).querySelectorAll('td');
-		var grades = [name, "N", "N", "N", "N"];
+		
+		var grades = [name, null, null, null, null];
 
 		var hours = info.item(0).textContent;
 
@@ -31,20 +36,22 @@ function classData(){
 			var elt = info.item(j);
 			var elta = elt.querySelector('a');
 
-			if(elta == null) continue;
+			if(elta === null) continue;
 	
 
 			var href = elta.href;
-			if(href.substring(href.length - 2) == "T1"){
+			
+		
+			if(href.substring(href.length - 14, href.length-12) == "T1"){
 				grades[1] = extractNumberGrade(elta.textContent);
 			}
-			if(href.substring(href.length - 2) == "T2"){
+			if(href.substring(href.length - 14, href.length-12) == "T2"){
 				grades[2] = extractNumberGrade(elta.textContent);
 			}
-			if(href.substring(href.length - 2) == "T3"){
+			if(href.substring(href.length - 14, href.length-12)== "T3"){
 				grades[3] = extractNumberGrade(elta.textContent);
 			}
-			if(href.substring(href.length - 2) == "Y1"){
+			if(href.substring(href.length - 14, href.length-12) == "Y1"){
 				grades[4] = extractNumberGrade(elta.textContent);
 			}
 		}
@@ -52,6 +59,7 @@ function classData(){
 		data.push(grades);
 	}
 
+	
 	return data;
 }
 
@@ -59,7 +67,11 @@ function classData(){
 
 chrome.storage.local.get("grades", function(key){
 	var current_data = classData();
-	var previous_data = key.grade
+	var previous_data = key.grades;
+
+
+
+
 
 	changes = [];
 	if(previous_data !== undefined){
@@ -74,8 +86,8 @@ chrome.storage.local.get("grades", function(key){
 
 
 				if (previous_data[subjectIndex][sectionIndex] != current_data[subjectIndex][sectionIndex]){
-
-
+					
+					
 					var subject = current_data[subjectIndex][0];
 					var before = previous_data[subjectIndex][sectionIndex]
 					var after = current_data[subjectIndex][sectionIndex];
@@ -139,7 +151,7 @@ chrome.storage.local.get("grades", function(key){
 
 
 
-
+	
 	chrome.storage.local.set({'grades': current_data});
 	
 
