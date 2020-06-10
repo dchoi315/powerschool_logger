@@ -1,3 +1,3 @@
-# powerschool_logger
+# Powerschool Grades History Logger
 
 Log History Changes in Powerschool App
