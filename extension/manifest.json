@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Powerschool Logger",
-  "version": "0.2",
+  "name": "BCA Powerschool Logger",
+  "version": "0.4",
   "description": "Tracks updates on Powerschool",
 
   "content_scripts": [
@@ -22,8 +22,7 @@
 
   "permissions": [
     "storage",
-    "https://ajax.googleapis.com/",
-    "activeTab"
+    "https://ajax.googleapis.com/"
   ]
 
 }

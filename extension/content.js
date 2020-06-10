@@ -69,12 +69,8 @@ chrome.storage.local.get("grades", function(key){
 	var current_data = classData();
 	var previous_data = key.grades;
 
-
-
-
-
 	changes = [];
-	if(previous_data !== undefined){
+	if(typeof (previous_data) !== 'undefined'){
 
 
 
@@ -89,7 +85,7 @@ chrome.storage.local.get("grades", function(key){
 					
 					
 					var subject = current_data[subjectIndex][0];
-					var before = previous_data[subjectIndex][sectionIndex]
+					var before = previous_data[subjectIndex][sectionIndex];
 					var after = current_data[subjectIndex][sectionIndex];
 					var change = (current_data[subjectIndex][sectionIndex] - previous_data[subjectIndex][sectionIndex]).toFixed(1);
 					var today = new Date();
